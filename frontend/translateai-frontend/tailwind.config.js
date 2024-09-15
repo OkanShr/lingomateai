@@ -1,12 +1,13 @@
 /** @type {import('tailwindcss').Config} */
-export default {
-  content: ["./src/**/*.{js,jsx}"],
-  extend: {
+module.exports = {
+  content: ["./src/**/*.{js,jsx,ts,tsx}"],
+  theme: {
     colors: {
-      customColor1: "#f2eaf4", // Example hex code for a custom color
-      customColor2: "#1e90ff",
-      customColor3: "#32cd32",
+      "custom-beige-light": "#dfc8ad",
+      "custom-green": "#4e592e",
+      "custom-green-light": "#91a555",
     },
+    extend: {},
   },
   plugins: [],
 };

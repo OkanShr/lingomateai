@@ -5,7 +5,9 @@ function HomePage() {
   return (
     <div className="bg-white-100 h-screen flex flex-row">
       <SidebarShort />
-      <h1>Dashboard</h1>
+      <div className="m-5">
+        <h1>Dashboard</h1>
+      </div>
     </div>
   );
 }

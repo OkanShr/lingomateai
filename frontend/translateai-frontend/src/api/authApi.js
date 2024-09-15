@@ -2,7 +2,11 @@ import { instance as axiosInstance } from "./apiInterceptor";
 
 export const loginUser = async (post) => {
   try {
-    const response = await axiosInstance.post("/api/v1/auth/signin", post);
+    const response = await axiosInstance.post("/token", post, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
     return response.data;
   } catch (error) {
     if (!error.response) {
@@ -19,5 +23,9 @@ export const loginUser = async (post) => {
 };
 
 export const registerUser = (post) => {
-  return axiosInstance.post("/api/v1/auth/signup", post);
+  return axiosInstance.post("/register", post, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
 };

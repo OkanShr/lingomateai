@@ -2,41 +2,81 @@ import React from "react";
 import Sidebar from "../components/Sidebar";
 import { SidebarItem } from "../components/Sidebar";
 import { LayoutDashboard, Users } from "lucide-react";
+import questionGif from "../assets/question.gif";
+import questionStatic from "../assets/question.png";
+import folderGif from "../assets/folder.gif";
+import folderStatic from "../assets/folder.png";
+import questionsGif from "../assets/manual.gif";
+import questionsStatic from "../assets/manual.png";
+import translateTextGif from "../assets/translate.gif";
+import translateTextStatic from "../assets/translate.png";
+import translateDocGif from "../assets/dialogue.gif";
+import translateDocStatic from "../assets/dialogue.png";
+
 export const SidebarShort = (props) => {
-  const { documents, questions, ask_about, translate_doc, translate_txt } =
-    props;
+  const {
+    expanded,
+    documents,
+    questions,
+    ask_about,
+    translate_doc,
+    translate_txt,
+  } = props;
+
   return (
-    <div className="bg-white-100 h-screen flex flex-row">
-      <Sidebar>
-        {/* Can add link to home */}
-        <h2>My Profile</h2>
+    <div className="bg-white h-screen flex flex-row">
+      <Sidebar expanded={expanded}>
+        {/* Conditionally render heading or divider based on the expanded state */}
+        {expanded ? (
+          <h2>Profile</h2>
+        ) : (
+          <div className="border-t border-gray-300 my-2" />
+        )}
         <SidebarItem
+          staticImg={folderStatic}
+          gifSrc={folderGif}
           text="Documents"
           icon={<LayoutDashboard size={20} />}
           onclick={"documents"}
           active={documents}
+          gifAlt={"documents"}
         />
         <SidebarItem
+          staticImg={questionsStatic}
+          gifSrc={questionsGif}
           text="Questions"
           icon={<Users size={20} />}
           onclick={"questions"}
           active={questions}
+          gifAlt={"questions"}
         />
 
-        <h2>Services</h2>
+        {expanded ? (
+          <h2>Services</h2>
+        ) : (
+          <div className="border-t border-gray-300 my-2" />
+        )}
         <SidebarItem
+          staticImg={questionStatic}
           text="Ask About"
-          icon={<Users size={20} />}
+          gifSrc={questionGif}
           onclick={"ask_about"}
           active={ask_about}
+          gifAlt={"ask_about"}
         />
         <SidebarItem
+          staticImg={translateDocStatic}
+          gifSrc={translateDocGif}
           text="Translate Doc"
           icon={<Users size={20} />}
           onclick={"translate_doc"}
           active={translate_doc}
+          gifAlt={"translate_doc"}
         />
         <SidebarItem
+          staticImg={translateTextStatic}
+          gifSrc={translateTextGif}
+          gifAlt={"translate_txt"}
           text="Translate Text"
           icon={<Users size={20} />}
           onclick={"translate_txt"}

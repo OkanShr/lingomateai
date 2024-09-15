@@ -1,4 +1,3 @@
-import "./App.css";
 import { PrivateRoute } from "./pages/PrivateRoute";
 import { Route, Routes } from "react-router-dom";
 
@@ -12,7 +11,7 @@ function App() {
         <Route path="/" element={<PrivateRoute />}>
           <Route path="/" element={<HomePage />} />
         </Route>
-        <Route path="/signin" element={<LoginPage />} />
+        <Route path="/login" element={<LoginPage />} />
       </Routes>
     </div>
   );

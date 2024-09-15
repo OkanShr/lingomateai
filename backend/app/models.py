@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer,String
-from backend.app.database import Base
-from backend.app.database import engine
+from app.database import Base
+from app.database import engine
 
 class DataModel:
     def __init__(self, data):

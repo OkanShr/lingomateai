@@ -36,12 +36,9 @@ instance.interceptors.response.use(
 
         try {
           const refreshToken = localStorage.getItem("refreshToken"); // or wherever you store it
-          const response = await axios.post(
-            `${API_BASE_URL}/api/v1/auth/refresh`,
-            {
-              refreshToken,
-            }
-          );
+          const response = await axios.post(`${API_BASE_URL}/refresh`, {
+            refreshToken,
+          });
 
           const newToken = response.data.token; // Assuming your response contains the new token
           localStorage.setItem("token", newToken);
@@ -52,7 +49,7 @@ instance.interceptors.response.use(
         } catch (err) {
           isRefreshing = false;
           refreshSubscribers = [];
-          window.location.href = "/signin";
+          window.location.href = "/token";
         }
       }
 
@@ -68,7 +65,7 @@ instance.interceptors.response.use(
       // Handle 403 Forbidden response
       console.log("Request failed with status code 403");
       // Redirect to the root directory or show an appropriate message
-      window.location.href = "/signin";
+      window.location.href = "/token";
     }
 
     return Promise.reject(error);
