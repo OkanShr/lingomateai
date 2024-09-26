@@ -1,21 +1,20 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { combineReducers } from "redux";
 import auth from "./authentication";
-import storage from 'redux-persist/lib/storage'
-import { persistReducer, persistStore } from 'redux-persist';
+import storage from "redux-persist/lib/storage";
+import { persistReducer, persistStore } from "redux-persist";
+import translation from "../api/translationApi";
 
 const persistConfig = {
-  key: 'root',
+  key: "root",
   storage,
-}
+};
 const reducer = combineReducers({
   auth,
+  translation,
 });
 
-
-const persistedReducer = persistReducer(persistConfig, reducer)
-
-
+const persistedReducer = persistReducer(persistConfig, reducer);
 
 const store = configureStore({
   reducer: persistedReducer,
@@ -24,7 +23,6 @@ const store = configureStore({
       serializableCheck: false,
     }),
 });
-const persistor = persistStore(store)
+const persistor = persistStore(store);
 
-
-export {store,persistor}
+export { store, persistor };
