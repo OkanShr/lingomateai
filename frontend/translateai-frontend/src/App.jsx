@@ -4,7 +4,7 @@ import { Route, Routes } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import HomePage from "./pages/HomePage";
 import TranslateTextPage from "./pages/TranslateTextPage";
-
+import TranslateDocPage from "./pages/TranslateDocPage";
 function App() {
   return (
     <div>
@@ -14,6 +14,7 @@ function App() {
         </Route>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/translate_txt" element={<TranslateTextPage />} />
+        <Route path="/translate_doc" element={<TranslateDocPage />} />
         <Route path="/login" element={<LoginPage />} />
       </Routes>
     </div>
