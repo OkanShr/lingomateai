@@ -1,6 +1,6 @@
-# FastAPI Authentication and User Management
+# Translation Project using LM with Basic Authentication
 
-This codebase provides a simple user authentication system using FastAPI, SQLAlchemy, and JWT (JSON Web Tokens). It allows users to register, log in, and verify tokens. The database interaction is handled with SQLAlchemy, while passwords are securely hashed using Passlib.
+This project provides a simple text translation using language models and it has a user authentication system using FastAPI, SQLAlchemy, and JWT (JSON Web Tokens). It allows users to register, log in, and verify tokens, select and translate text. The database interaction is handled with SQLAlchemy, while passwords are securely hashed using Passlib.
 
 ## Features
 
@@ -17,6 +17,10 @@ This codebase provides a simple user authentication system using FastAPI, SQLAlc
 - Pydantic
 - Passlib
 - Python-JOSE
+- Torch
+- Transformers (Hugging Face)
+
+Requirements will be updates soon.
 
 ## Installation
 
@@ -44,11 +48,22 @@ This codebase provides a simple user authentication system using FastAPI, SQLAlc
 
 ## Configuration
 
-Update the SECRET_KEY, ALGORITHM, and ACCESS_TOKEN_EXPIRE_MINUTES variables in the main file to fit your needs:
+Update the following variables in the main file to fit your needs:
 
 - `SECRET_KEY`: A secret key for encoding the JWT tokens. Replace with a strong secret.
 - `ALGORITHM`: The algorithm used for JWT encoding (e.g., HS256).
 - `ACCESS_TOKEN_EXPIRE_MINUTES`: The duration (in minutes) for which an access token remains valid.
+- `SQLALCHEMY_DATABASE_URL`: The SQLite database URL for local usage.
+
+## Translation Model Setup
+
+The project uses MarianMT models from Hugging Face for translation between various languages. The model will automatically select cuda (if available) or cpu for inference.
+
+The translation logic is implemented in translation_module.translation, which loads the necessary models dynamically based on the source and target languages.
+
+### Supported Languages
+
+MarianMT models cover many language pairs. Modify the source and target languages based on the ISO 639-1 code (e.g., en for English, fr for French).
 
 ## Database Setup
 
@@ -105,6 +120,26 @@ The API will be accessible at http://localhost:8000.
   ```json
   {
     "message": "Token is valid"
+  }
+  ```
+
+### Translate text
+
+- **Endpoint**: `/translate`
+- **Method**: `POST`
+- **Body**:
+  ```json
+ {
+  "source_lang": "en",
+  "target_lang": "fr",
+  "text": "Hello, how are you?"
+}
+
+  ```
+- **Response**:
+  ```json
+  {
+     "translated_text": "Bonjour, comment ça va?"
   }
   ```
 
