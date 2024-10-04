@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchTranslation } from "../api/translationApi"; // Import the translation action
+import { fetchTranslation } from "../api/translationApi";
 
 const TranslateText = () => {
   const [sourceText, setSourceText] = useState("");

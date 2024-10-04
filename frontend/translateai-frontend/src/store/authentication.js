@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { resetTranslation } from "./translation";
 
 const initialState = {
   value: {
@@ -30,5 +31,10 @@ export const authSlice = createSlice({
   },
 });
 
-export const { login, logout } = authSlice.actions;
+export const logout = () => (dispatch) => {
+  dispatch(resetTranslation());
+  dispatch(authSlice.actions.logout());
+};
+
+export const { login } = authSlice.actions;
 export default authSlice.reducer;

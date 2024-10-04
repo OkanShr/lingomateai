@@ -1,30 +1,60 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchTranslation } from "../api/translationApi";
+import { pdfjs } from "react-pdf";
+import TranslateBtnImg from "../assets/translation.png";
+
+pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
 
 const TranslateDoc = () => {
   const [sourceFile, setSourceFile] = useState(null);
   const [sourceLang, setSourceLang] = useState("");
   const [targetLang, setTargetLang] = useState("");
-
+  const [pdfText, setPdfText] = useState("");
   const dispatch = useDispatch();
+
   const { translatedText, loading, error } = useSelector(
     (state) => state.translation
-  );
+  ); // Get translation state from Redux
 
-  const handleFileChange = (e) => {
-    setSourceFile(e.target.files[0]);
+  // Reset state when component mounts
+  useEffect(() => {
+    setSourceFile(null);
+    setSourceLang("");
+    setTargetLang("");
+    setPdfText("");
+  }, []);
+
+  // Handle file change (PDF or any document)
+  const handleFileChange = async (event) => {
+    const file = event.target.files[0];
+    if (file && file.type === "application/pdf") {
+      const pdf = await pdfjs.getDocument(URL.createObjectURL(file)).promise;
+      const numPages = pdf.numPages;
+      let fullText = "";
+
+      for (let i = 1; i <= numPages; i++) {
+        const page = await pdf.getPage(i);
+        const content = await page.getTextContent();
+        const pageText = content.items.map((item) => item.str).join(" ");
+        fullText += pageText + "\n"; // Concatenate text from each page
+      }
+
+      setPdfText(fullText);
+      setSourceFile(file);
+    } else {
+      alert("Please upload a valid PDF file.");
+    }
   };
 
+  // Handle translation of the extracted text
   const handleTranslate = () => {
-    if (sourceLang && targetLang && sourceFile) {
-      const formData = new FormData();
-      formData.append("file", sourceFile);
-      formData.append("sourceLang", sourceLang);
-      formData.append("targetLang", targetLang);
-      dispatch(fetchTranslation(formData));
+    if (sourceLang && targetLang && pdfText) {
+      dispatch(
+        fetchTranslation({ sourceText: pdfText, sourceLang, targetLang })
+      );
     } else {
-      alert("Please fill in all fields");
+      alert("Please fill in all fields and upload a document");
     }
   };
 
@@ -35,6 +65,7 @@ const TranslateDoc = () => {
       </h1>
 
       <div className="flex items-center mb-6">
+        {/* Source Language */}
         <select
           value={sourceLang}
           onChange={(e) => setSourceLang(e.target.value)}
@@ -51,6 +82,7 @@ const TranslateDoc = () => {
 
         <span className="text-lg mx-2">➡️</span>
 
+        {/* Target Language */}
         <select
           value={targetLang}
           onChange={(e) => setTargetLang(e.target.value)}
@@ -66,25 +98,29 @@ const TranslateDoc = () => {
         </select>
       </div>
 
-      <div className="flex justify-between w-full ">
-        <label className="flex items-center border border-gray-300 rounded-lg p-3 w-72 mr-4 cursor-pointer">
+      <div className="flex justify-between w-full">
+        {/* Upload PDF Document */}
+        <label className="flex flex-col items-center justify-center bg-custom-green-light rounded-lg p-3 w-72 mr-4 cursor-pointer bg-green-500 hover:bg-green-600 transition-colors duration-200 group">
           <input
             type="file"
-            accept=".txt,.pdf,.doc,.docx"
+            accept=".pdf"
             onChange={handleFileChange}
             className="hidden"
           />
-          <span className="text-lg text-gray-600">+</span>
-          <span className="ml-2">Upload Document</span>
+          <span className="text-3xl text-white">+</span>
+          <span className="text-lg text-white mt-2 opacity-0 transform translate-y-2 transition-opacity transition-transform duration-300 group-hover:opacity-100 group-hover:translate-y-0">
+            Upload PDF Document
+          </span>
         </label>
 
         <button
           onClick={handleTranslate}
           className="mt-4 bg-blue-500 font-bold py-2 px-4 rounded-lg hover:bg-blue-600"
         >
-          Translate me
+          <img width={75} src={TranslateBtnImg} alt="Translate" />
         </button>
 
+        {/* Target Language Output */}
         <textarea
           rows="10"
           value={translatedText}
@@ -95,8 +131,16 @@ const TranslateDoc = () => {
       </div>
 
       {loading && <p className="text-blue-500 mt-4">Translating...</p>}
-
       {error && <p className="text-red-500 mt-4">Error: {error}</p>}
+
+      {/* Extracted PDF Text Display */}
+      <textarea
+        rows="10"
+        value={pdfText}
+        readOnly
+        className="resize-none border border-gray-300 rounded-lg p-3 w-full mt-4"
+        placeholder="Extracted text will appear here"
+      />
     </div>
   );
 };

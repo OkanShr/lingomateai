@@ -24,7 +24,7 @@ export const SidebarShort = (props) => {
   } = props;
 
   return (
-    <div className="bg-white h-screen flex flex-row">
+    <div className="bg-white h-screen max-w-72 flex flex-row ">
       <Sidebar expanded={expanded}>
         {/* Conditionally render heading or divider based on the expanded state */}
         {expanded ? (

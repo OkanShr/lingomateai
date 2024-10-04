@@ -21,6 +21,8 @@ export default function Sidebar({ children }) {
   const logoutFunction = (e) => {
     e.preventDefault();
     dispatch(logout());
+    console.log("Logged out");
+    navigate("/login");
   };
 
   // Handle screen size changes to set expanded state

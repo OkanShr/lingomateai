@@ -4,9 +4,6 @@ import react from "@vitejs/plugin-react";
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  optimizeDeps: {
-    exclude: ["pdfjs-dist"], // Exclude pdfjs-dist from optimization
-  },
   assetsInclude: ["**/*.docx"],
   server: {
     port: 3000,
