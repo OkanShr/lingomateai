@@ -4,6 +4,7 @@ import auth from "./authentication";
 import storage from "redux-persist/lib/storage";
 import { persistReducer, persistStore } from "redux-persist";
 import translation from "../api/translationApi";
+import phi from "../api/askAbout";
 
 const persistConfig = {
   key: "root",
@@ -12,6 +13,7 @@ const persistConfig = {
 const reducer = combineReducers({
   auth,
   translation,
+  phi,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducer);

@@ -78,6 +78,7 @@ const TranslateDoc = () => {
           <option value="es">Spanish</option>
           <option value="fr">French</option>
           <option value="de">German</option>
+          <option value="tr">Turkish</option>
         </select>
 
         <span className="text-lg mx-2">➡️</span>
@@ -95,6 +96,7 @@ const TranslateDoc = () => {
           <option value="es">Spanish</option>
           <option value="fr">French</option>
           <option value="de">German</option>
+          <option value="tr">Turkish</option>
         </select>
       </div>
 

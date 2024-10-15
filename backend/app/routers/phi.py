@@ -21,7 +21,7 @@ class PhiRequest(BaseModel):
 class PhiResponse(BaseModel):
     answer: str
 
-@router.post("/phi3", response_model=PhiResponse)
+@router.post("/ask-about", response_model=PhiResponse)
 def query_phi3(request: PhiRequest):
     try:
         # Prepare the input for the model
@@ -29,7 +29,7 @@ def query_phi3(request: PhiRequest):
         inputs = tokenizer(input_text, return_tensors="pt").to(device)
 
         # Generate a response from the model
-        outputs = model.generate(**inputs, max_length=150)  # You can adjust max_length as needed
+        outputs = model.generate(**inputs, max_length=800)
         answer = tokenizer.decode(outputs[0], skip_special_tokens=True)
 
         return {"answer": answer}
