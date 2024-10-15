@@ -100,7 +100,10 @@ const TranslateDoc = () => {
 
       <div className="flex justify-between w-full">
         {/* Upload PDF Document */}
-        <label className="flex flex-col items-center justify-center bg-custom-green-light rounded-lg p-3 w-72 mr-4 cursor-pointer bg-green-500 hover:bg-green-600 transition-colors duration-200 group">
+        <label
+          className="flex flex-col items-center justify-center bg-custom-green-light rounded-lg p-3 cursor-pointer bg-green-500 hover:bg-green-600 transition-colors duration-200 group"
+          style={{ width: "400px", height: "600px" }}
+        >
           <input
             type="file"
             accept=".pdf"
@@ -125,22 +128,13 @@ const TranslateDoc = () => {
           rows="10"
           value={translatedText}
           readOnly
-          className="resize-none border border-gray-300 rounded-lg p-3 w-72"
+          className="resize-none border border-gray-300 rounded-lg p-3 w-[400px] h-[600px]"
           placeholder="Translation will appear here"
         ></textarea>
       </div>
 
       {loading && <p className="text-blue-500 mt-4">Translating...</p>}
       {error && <p className="text-red-500 mt-4">Error: {error}</p>}
-
-      {/* Extracted PDF Text Display */}
-      <textarea
-        rows="10"
-        value={pdfText}
-        readOnly
-        className="resize-none border border-gray-300 rounded-lg p-3 w-full mt-4"
-        placeholder="Extracted text will appear here"
-      />
     </div>
   );
 };

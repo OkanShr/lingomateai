@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchTranslation } from "../api/translationApi";
+import TranslateBtnImg from "../assets/translation.png";
 
 const TranslateText = () => {
   const [sourceText, setSourceText] = useState("");
@@ -55,16 +56,18 @@ const TranslateText = () => {
           <option value="es">Spanish</option>
           <option value="fr">French</option>
           <option value="de">German</option>
+          <option value="tr">Turkish</option>
         </select>
       </div>
 
-      <div className="flex justify-between w-full ">
+      <div className="flex justify-between w-full">
         {/* Source Language Input */}
         <textarea
           rows="10"
           value={sourceText}
           onChange={(e) => setSourceText(e.target.value)}
-          className="resize-none border border-gray-300 rounded-lg p-3 w-72 mr-4"
+          className="resize-none border border-gray-300 rounded-lg p-3"
+          style={{ width: "400px", height: "600px" }} // Set to 400px x 600px
           placeholder="Enter text in source language"
         ></textarea>
 
@@ -72,7 +75,7 @@ const TranslateText = () => {
           onClick={handleTranslate}
           className="mt-4 bg-blue-500 font-bold py-2 px-4 rounded-lg hover:bg-blue-600"
         >
-          Translate me
+          <img width={75} src={TranslateBtnImg} alt="Translate" />
         </button>
 
         {/* Target Language Output */}
@@ -80,13 +83,12 @@ const TranslateText = () => {
           rows="10"
           value={translatedText}
           readOnly
-          className="resize-none border border-gray-300 rounded-lg p-3 w-72"
+          className="resize-none border border-gray-300 rounded-lg p-3 w-[400px] h-[600px]"
           placeholder="Translation will appear here"
         ></textarea>
       </div>
 
       {loading && <p className="text-blue-500 mt-4">Translating...</p>}
-
       {error && <p className="text-red-500 mt-4">Error: {error}</p>}
     </div>
   );

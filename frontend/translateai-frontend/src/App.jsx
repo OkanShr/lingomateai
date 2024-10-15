@@ -5,6 +5,7 @@ import LoginPage from "./pages/LoginPage";
 import HomePage from "./pages/HomePage";
 import TranslateTextPage from "./pages/TranslateTextPage";
 import TranslateDocPage from "./pages/TranslateDocPage";
+import AskAbout from "./pages/AskAbout";
 function App() {
   return (
     <div>
@@ -16,6 +17,7 @@ function App() {
         <Route path="/translate_txt" element={<TranslateTextPage />} />
         <Route path="/translate_doc" element={<TranslateDocPage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/ask_about" element={<AskAbout />} />
       </Routes>
     </div>
   );
