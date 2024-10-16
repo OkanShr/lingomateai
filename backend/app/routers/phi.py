@@ -24,14 +24,23 @@ class PhiResponse(BaseModel):
 @router.post("/ask-about", response_model=PhiResponse)
 def query_phi3(request: PhiRequest):
     try:
-        # Prepare the input for the model
-        input_text = f"{request.question} {request.text}"
+
+        input_text = (
+            f"Given the following text, respond to the question below concisely:\n"
+            f"---\n"
+            f"Text: {request.text}\n"
+            f"---\n"
+            f"Question: {request.question}\n"
+            "Provide an answer in 20-30 words."
+        )
+        
         inputs = tokenizer(input_text, return_tensors="pt").to(device)
 
-        # Generate a response from the model
-        outputs = model.generate(**inputs, max_length=800)
-        answer = tokenizer.decode(outputs[0], skip_special_tokens=True)
-
+        outputs = model.generate(**inputs, max_new_tokens=50)
+        
+        answer = tokenizer.decode(outputs[0], skip_special_tokens=True).strip()
+        
+        
         return {"answer": answer}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))

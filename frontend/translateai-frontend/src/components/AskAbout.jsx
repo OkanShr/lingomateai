@@ -1,8 +1,6 @@
-import SidebarShort from "./SidebarShort";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchPhiResponse } from "../api/askAbout";
-import TranslateBtnImg from "../assets/translation.png";
 import { pdfjs } from "react-pdf";
 
 // Set up PDF.js worker
@@ -109,7 +107,7 @@ const AskAbout = () => {
           <button
             onClick={() =>
               handleQuery(
-                "What is this file? Be concise, tell me only what it is about in 20 words."
+                "Explain the context of the following file in a short answer. Be consice. Answer example: This is a CV of a software developer in german: "
               )
             }
             className="mt-4 bg-blue-500 font-bold py-2 px-4 rounded-lg hover:bg-blue-600"
