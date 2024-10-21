@@ -3,12 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchPhiResponse } from "../api/askAbout";
 import { pdfjs } from "react-pdf";
 
-// Set up PDF.js worker
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
 
 const AskAbout = () => {
   const [inputType, setInputType] = useState("text"); // State for input type selection
   const [sourceText, setSourceText] = useState("");
+  const [fileName, setFileName] = useState(""); // State to track uploaded file
   const [question, setQuestion] = useState("");
   const dispatch = useDispatch();
   const { answer, loading, error } = useSelector((state) => state.phi); // Get phi state from Redux
@@ -17,6 +17,7 @@ const AskAbout = () => {
   const handleFileChange = async (event) => {
     const file = event.target.files[0];
     if (file && file.type === "application/pdf") {
+      setFileName(file.name); // Set the file name for preview
       const pdf = await pdfjs.getDocument(URL.createObjectURL(file)).promise;
       const numPages = pdf.numPages;
       let fullText = "";
@@ -70,9 +71,7 @@ const AskAbout = () => {
       </div>
       <div className="flex flex-row">
         <div>
-          <div className="flex  items-start mr-4">
-            {/* Question Input */}
-
+          <div className="flex items-start mr-4">
             {/* Conditional Input for PDF or Text */}
             {inputType === "text" ? (
               <textarea
@@ -93,10 +92,19 @@ const AskAbout = () => {
                   onChange={handleFileChange}
                   className="hidden"
                 />
-                <span className="text-3xl text-white">+</span>
-                <span className="text-lg text-white mt-2 opacity-0 transform translate-y-2 transition-opacity transition-transform duration-300 group-hover:opacity-100 group-hover:translate-y-0">
-                  Upload PDF Document
-                </span>
+                {fileName ? (
+                  <div className="flex flex-col items-center text-white">
+                    <span className="text-xl">{fileName}</span>
+                    <span className="text-sm mt-2">(Click to change file)</span>
+                  </div>
+                ) : (
+                  <>
+                    <span className="text-3xl text-white">+</span>
+                    <span className="text-lg text-white mt-2 opacity-0 transform translate-y-2 transition-opacity transition-transform duration-300 group-hover:opacity-100 group-hover:translate-y-0">
+                      Upload PDF Document
+                    </span>
+                  </>
+                )}
               </label>
             )}
           </div>
@@ -106,9 +114,7 @@ const AskAbout = () => {
           {/* New Button for querying about the file */}
           <button
             onClick={() =>
-              handleQuery(
-                "Explain the context of the following file in a short answer. Be consice. Answer example: This is a CV of a software developer in german: "
-              )
+              handleQuery("Explain the context of the following text.")
             }
             className="mt-4 bg-blue-500 font-bold py-2 px-4 rounded-lg hover:bg-blue-600"
           >
@@ -121,7 +127,7 @@ const AskAbout = () => {
           rows="10"
           value={answer}
           readOnly
-          className="resize-none border border-gray-300 rounded-lg p-3 w-[400px] h-[600px] "
+          className="resize-none border border-gray-300 rounded-lg p-3 w-[400px] h-[600px]"
           placeholder="Response will appear here"
         />
       </div>
