@@ -66,8 +66,7 @@ const TranslateText = () => {
           rows="10"
           value={sourceText}
           onChange={(e) => setSourceText(e.target.value)}
-          className="resize-none border border-gray-300 rounded-lg p-3"
-          style={{ width: "400px", height: "600px" }} // Set to 400px x 600px
+          className="resize-none border border-gray-300 rounded-lg p-3 w-[600px] h-[700px] mr-4"
           placeholder="Enter text in source language"
         ></textarea>
 
@@ -81,15 +80,20 @@ const TranslateText = () => {
         {/* Target Language Output */}
         <textarea
           rows="10"
-          value={translatedText}
+          value={
+            loading
+              ? "Translating..."
+              : error
+              ? `Error: ${error}`
+              : translatedText
+          }
           readOnly
-          className="resize-none border border-gray-300 rounded-lg p-3 w-[400px] h-[600px]"
+          className="resize-none border border-gray-300 rounded-lg p-3 w-[600px] h-[700px] mr-4"
           placeholder="Translation will appear here"
         ></textarea>
       </div>
 
       {loading && <p className="text-blue-500 mt-4">Translating...</p>}
-      {error && <p className="text-red-500 mt-4">Error: {error}</p>}
     </div>
   );
 };

@@ -17,8 +17,6 @@ function App() {
         <Route path="/translate_txt" element={<TranslateTextPage />} />
         <Route path="/translate_doc" element={<TranslateDocPage />} />
         <Route path="/ask_about" element={<AskAboutPage />} />
-
-        <Route path="/login" element={<LoginPage />} />
       </Routes>
     </div>
   );

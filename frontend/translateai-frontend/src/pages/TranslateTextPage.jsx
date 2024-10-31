@@ -6,7 +6,7 @@ function TranslateTextPage() {
   return (
     <div className="bg-white-100 h-screen w-full flex flex-row bg-custom-beige-light">
       <SidebarShort />
-      <div className="m-5">
+      <div className="my-2 mx-5">
         <TranslateText />
       </div>
     </div>

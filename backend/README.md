@@ -25,7 +25,6 @@ This codebase provides a simple user authentication system using FastAPI, SQLAlc
    ```bash
    git clone https://github.com/your-repo/your-project.git
    cd your-project
-
    ```
 
 2. Create a virtual environment and activate it:
@@ -37,6 +36,7 @@ This codebase provides a simple user authentication system using FastAPI, SQLAlc
    ```
 
 3. Install the required dependencies:
+
    ```bash
    pip install -r requirements.txt
 
@@ -56,6 +56,7 @@ This codebase uses SQLite as the default database. The connection URL is set in 
 
 - Models: The `User` model is defined in the `models.py` file.
 - Migrations: Run the following command to create the tables:
+
   ```bash
   python main.py
 
@@ -66,7 +67,8 @@ This codebase uses SQLite as the default database. The connection URL is set in 
 # Starting the Server
 
 Run the FastAPI application using:
-```bash
+
+````bash
 uvicorn main:app --reload
 The API will be accessible at http://localhost:8000.
 
@@ -82,7 +84,7 @@ The API will be accessible at http://localhost:8000.
     "username": "your_username",
     "password": "your_password"
   }
-  ```
+````
 
 ### Login and obtain a JWT token
 

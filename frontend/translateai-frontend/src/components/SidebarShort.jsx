@@ -27,29 +27,6 @@ export const SidebarShort = (props) => {
     <div className="bg-white h-screen max-w-72 flex flex-row ">
       <Sidebar expanded={expanded}>
         {/* Conditionally render heading or divider based on the expanded state */}
-        {expanded ? (
-          <h2>Profile</h2>
-        ) : (
-          <div className="border-t border-gray-300 my-2" />
-        )}
-        <SidebarItem
-          staticImg={folderStatic}
-          gifSrc={folderGif}
-          text="Documents"
-          icon={<LayoutDashboard size={20} />}
-          onclick={"documents"}
-          active={documents}
-          gifAlt={"documents"}
-        />
-        <SidebarItem
-          staticImg={questionsStatic}
-          gifSrc={questionsGif}
-          text="Questions"
-          icon={<Users size={20} />}
-          onclick={"questions"}
-          active={questions}
-          gifAlt={"questions"}
-        />
 
         {expanded ? (
           <h2>Services</h2>

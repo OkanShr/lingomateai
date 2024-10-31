@@ -64,7 +64,7 @@ const TranslateDoc = () => {
         Translate Document
       </h1>
 
-      <div className="flex items-center mb-6">
+      <div className="flex items-center mb-3">
         {/* Source Language */}
         <select
           value={sourceLang}
@@ -96,41 +96,49 @@ const TranslateDoc = () => {
           <option value="es">Spanish</option>
           <option value="fr">French</option>
           <option value="de">German</option>
-          <option value="tr">Turkish</option>
+          <option value="big-tr">Turkish</option>
         </select>
       </div>
-
-      <div className="flex justify-between w-full">
-        {/* Upload PDF Document */}
-        <label
-          className="flex flex-col items-center justify-center bg-custom-green-light rounded-lg p-3 cursor-pointer bg-green-500 hover:bg-green-600 transition-colors duration-200 group"
-          style={{ width: "400px", height: "600px" }}
-        >
+      <div className="w-full mb-3 flex items-center justify-center">
+        <label className="bg-custom-green-light rounded-lg cursor-pointer transition-colors duration-200 group p-3 w-1/4 ">
           <input
             type="file"
             accept=".pdf"
             onChange={handleFileChange}
             className="hidden"
           />
-          <span className="text-3xl text-white">+</span>
-          <span className="text-lg text-white mt-2 opacity-0 transform translate-y-2 transition-opacity transition-transform duration-300 group-hover:opacity-100 group-hover:translate-y-0">
-            Upload PDF Document
+          <span className="flex items-center justify-center text-xl text-white  transform  transition-opacity transition-transform duration-300 group-hover:opacity-100">
+            {sourceFile ? "Change PDF Document" : "Upload PDF Document"}
           </span>
         </label>
+      </div>
 
+      <div className="flex justify-between w-full">
+        {/* Upload PDF Document */}
+
+        {/* Editable Extracted Text */}
+        <textarea
+          rows="20"
+          value={pdfText}
+          onChange={(e) => setPdfText(e.target.value)}
+          className="resize-none border border-gray-300 rounded-lg p-3 w-[600px] h-[700px] mr-4"
+          placeholder="Extracted text will appear here"
+        ></textarea>
+
+        {/* Translate Button */}
         <button
           onClick={handleTranslate}
-          className="mt-4 bg-blue-500 font-bold py-2 px-4 rounded-lg hover:bg-blue-600"
+          className="mt-3 bg-blue-500 font-bold py-2 px-4 rounded-lg hover:bg-blue-600"
         >
           <img width={75} src={TranslateBtnImg} alt="Translate" />
         </button>
 
         {/* Target Language Output */}
         <textarea
-          rows="10"
-          value={translatedText}
+          rows="20"
+          value={error ? `Error: ${error}` : translatedText}
           readOnly
-          className="resize-none border border-gray-300 rounded-lg p-3 w-[400px] h-[600px]"
+          className="resize-none border border-gray-300 rounded-lg p-3 w-[600px] h-[700px] ml-4"
           placeholder="Translation will appear here"
         ></textarea>
       </div>

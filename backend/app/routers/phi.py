@@ -52,7 +52,7 @@ def query_phi3(request: PhiRequest):
         # Define generation parameters
         search_options = {
             'do_sample': True,           # Enable sampling
-            'max_length': 50,            # Max tokens for generation
+            'max_length': 100,            # Max tokens for generation
             'temperature': 0.7,          # Control randomness
             'top_p': 0.9,                # Nucleus sampling
             'top_k': 50,                 # Top-k sampling

@@ -78,14 +78,11 @@ const AskAbout = () => {
                 rows="10"
                 value={sourceText}
                 onChange={(e) => setSourceText(e.target.value)}
-                className="resize-none border border-gray-300 rounded-lg p-3 w-[400px] h-[600px]"
+                className="resize-none border border-gray-300 rounded-lg p-3 w-[600px] h-[700px] mr-4"
                 placeholder="Enter text for the model"
               />
             ) : (
-              <label
-                className="flex flex-col items-center justify-center bg-custom-green-light rounded-lg p-3 cursor-pointer bg-green-500 hover:bg-green-600 transition-colors duration-200 group"
-                style={{ width: "400px", height: "600px" }}
-              >
+              <label className="flex flex-col items-center justify-center w-[600px] h-[700px] bg-custom-green-light rounded-lg p-3 cursor-pointer bg-green-500 hover:bg-green-600 transition-colors duration-200 group ">
                 <input
                   type="file"
                   accept=".pdf"
@@ -125,15 +122,14 @@ const AskAbout = () => {
         {/* Answer Output */}
         <textarea
           rows="10"
-          value={answer}
+          value={
+            loading ? "Querying Phi-3..." : error ? `Error: ${error}` : answer
+          }
           readOnly
-          className="resize-none border border-gray-300 rounded-lg p-3 w-[400px] h-[600px]"
+          className="resize-none border border-gray-300 rounded-lg p-3 w-[600px] h-[700px] mr-4"
           placeholder="Response will appear here"
         />
       </div>
-
-      {loading && <p className="text-blue-500 mt-4">Querying Phi-3...</p>}
-      {error && <p className="text-red-500 mt-4">Error: {error}</p>}
     </div>
   );
 };
